@@ -32,8 +32,8 @@ public interface IQueue<T> {
 	public T first();
 	
 	/**
-	 * Retorna el tamaño de la lista.
-	 * @return int, Tamaño total.
+	 * Retorna el tamaï¿½o de la lista.
+	 * @return int, Tamaï¿½o total.
 	 */
 	public int size();
 	

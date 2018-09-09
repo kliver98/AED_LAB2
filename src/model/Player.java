@@ -9,17 +9,14 @@ public class Player {
 	private  String nickName;
 	private long ping;
 	
+	
 	//RELATIONS 
 	//BUILD METHOD
 	
 	public Player(String nickName) {
-		ranking = 0;
-		
-		
+		ranking = 0;	
 	}
-	
 	//GETTER AND SETTER METHODS
-
 	public int getRanking() {
 		return ranking;
 	}
