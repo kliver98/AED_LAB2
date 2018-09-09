@@ -1,11 +1,12 @@
-package model;
+package collection;
 
-public class Node<T> {
-	private T value;
-	private Node<T> next;
-	private Node<T> back;
+public class Nodo<T> {
 	
-	public Node(T value) {
+	private T value;
+	private Nodo<T> next;
+	private Nodo<T> back;
+	
+	public Nodo(T value) {
 		this.setValue(value);
 		next = null;
 		back = null;
@@ -19,19 +20,19 @@ public class Node<T> {
 		this.value = value;
 	} 	
 
-	public Node<T> getNext() {
+	public Nodo<T> getNext() {
 		return next;
 	}
 
-	public void setNext(Node<T> next) {
+	public void setNext(Nodo<T> next) {
 		this.next = next;
 	}
 
-	public Node<T> getBack() {
+	public Nodo<T> getBack() {
 		return back;
 	}
 
-	public void setBack(Node<T> back) {
+	public void setBack(Nodo<T> back) {
 		this.back = back;
 	}
 

@@ -1,25 +1,27 @@
-package model;
+package collection;
 
-public class List<T> implements IQueue<T>, IStack<T>{
+import interfaces.*;
+
+public class List<T> implements IStack<T>, IQueue<T>{
 	
-	
-	private Node<T> peek;
-	private Node<T> first;
-	private Node<T> last;
+	private Nodo<T> peek;
+	private Nodo<T> first;
+	private Nodo<T> last;
 	private int size;
 	
 	public List() {
 		size = 0;
 	}
 
+	@Override
 	public void offer(T e) {
 		if (isEmpty()) {
-			first = new Node<T>(e);
+			first = new Nodo<T>(e);
 			last = first;
 			size++;
 		}
 		else {
-			Node<T> temp = new Node<T>(e);
+			Nodo<T> temp = new Nodo<T>(e);
 			last.setNext(temp);
 			temp.setBack(last);
 			last = temp;
@@ -27,7 +29,7 @@ public class List<T> implements IQueue<T>, IStack<T>{
 		}
 	}
 
-
+	@Override
 	public T poll() {
 		T rsT = null;
 		if (!isEmpty()) {
@@ -37,17 +39,17 @@ public class List<T> implements IQueue<T>, IStack<T>{
 		return rsT;
 	}
 
-
+	@Override
 	public T element() {
 		return first();
 	}
 
-
+	@Override
 	public int size() {
 		return size;
 	}
 
-
+	@Override
 	public T pop() {
 		T rst = null;
 		if (!isEmpty()) {
@@ -58,35 +60,36 @@ public class List<T> implements IQueue<T>, IStack<T>{
 		return rst;
 	}
 
-
+	@Override
 	public T first() {
 		return (isEmpty())?null:first.getValue();
 	}
 	
-
+	@Override
 	public T last() {
 		return (isEmpty())?null:peek.getValue();
 	}
 
-
+	@Override
 	public void push(T value) {
 		if (size==0) {
-			peek = new Node<T>(value);
+			peek = new Nodo<T>(value);
 			size++;
 		}
 		else {
-			peek.setNext(new Node<T>(value));
+			peek.setNext(new Nodo<T>(value));
 			peek.getNext().setBack(peek);
 			peek = peek.getNext();
 			size++;
 		}
 	}
 
+	@Override
 	public boolean isEmpty() {
 		return (size==0)?true:false;
 	}
 
-
+	@Override
 	public void removeLastElement() {
 		if (size>1) {
 			peek = this.peek.getBack();
@@ -100,6 +103,7 @@ public class List<T> implements IQueue<T>, IStack<T>{
 		}
 	}
 
+	@Override
 	public void removeFirstElement() {
 		if (size>1) {
 			first.getNext().setBack(null);
@@ -113,6 +117,4 @@ public class List<T> implements IQueue<T>, IStack<T>{
 		}
 	}
 	
-	
-
 }
