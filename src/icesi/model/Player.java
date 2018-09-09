@@ -1,4 +1,4 @@
-package model;
+package icesi.model;
 
 public class Player {
 
