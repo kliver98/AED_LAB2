@@ -3,37 +3,37 @@ package estructurasDeDatos;
 public interface IStack<T> {
 	
 	/**
-	 * Retorna un elemento T, para luego eliminarlo de la lista.
-	 * @return T. Tipo de dato generico
-	 */
+	* Returns a T element, and then removes it from the list.
+	* @return T. Generic data type
+	*/
 	public T pop();
 	
 	/**
-	 * Retorna un elemento T
-	 * @return T. tipo de dato generico.
+	 * Returns an element T
+	 * @return T. generic data type.
 	 */
 	public T last();
 	
 	/**
-	 * Elimina el ultimo elemento que se encuentra en la lista.
+	 * Remove the last element that is in the list.
 	 */
 	public void removeLastElement();
 	
 	/**
-	 * Agrega un elemeto en la ultima pocision de la lista.
+	 * Add an item in the last position of the list.
 	 * @param value
 	 */
 	public void push(T value);
 	
 	/**
-	 * Verifica si la lista se encuentra vacia o no.
-	 * @return boolean, True Si esta vacia. False de lo contrario
+	 * Check if the list is empty or not.
+	 * @return boolean, True If empty. False otherwise
 	 */
 	public boolean isEmpty();
 	
 	/**
-	 * Retorna el tamaño de la lista.
-	 * @return Integer. 0 si esta vicia, Cualquier otro numero dependiendo de los elementos
+	 * Returns the size of the list.
+	 * @return Integer. 0 if this taint, Any other number depending on the elements
 	 */
 	public int size();
 
