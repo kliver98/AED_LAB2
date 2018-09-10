@@ -1,5 +1,10 @@
 package icesi.model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class Weapon {
 	
 	//CONSTANTS
@@ -27,15 +32,19 @@ public class Weapon {
 	/**
 	 * Attribute that represents the type of the weapon.<br>
 	 */
-	private int type;
+	private IntegerProperty type;
+	/**
+	 * Attribute that represents the string type of the weapon;
+	 */
+	private final StringProperty stringType;
 	/**
 	 * Attribute that represents the ammunition amount of the weapon<br>
 	 */
-	private int ammunitionAmount;
+	private IntegerProperty ammunitionAmount;
 	/**
 	 * Attribute that represents how much hurt makes the weapon<br>
 	 */
-	private int hurt;
+	private IntegerProperty hurt;
 	//RELATIONS 
 	
 	/**
@@ -43,53 +52,65 @@ public class Weapon {
 	 * With name equals to AX, ammunitionAmount to 0, and hurt equals to 5<br>
 	 */
 	public Weapon() {
-		type =AX;
-		 ammunitionAmount = 0;	 
-		 hurt = 5;
+		this(AX);
 	}
 	
 	/**
 	 * Construct a Weapon and put the ammunitonAmount and hurt depending to the type of weapon<br>
 	 * @param name
 	 */
-	public Weapon(int type ) {
-		this.type = type;
-		if(type == GUN) {
-			ammunitionAmount = 20;
-			hurt = DAMAGE;
+	public Weapon(int type) {
+		this.type = new SimpleIntegerProperty(type);
+		ammunitionAmount = new SimpleIntegerProperty(0);
+		hurt = new SimpleIntegerProperty(0);
+		stringType = new SimpleStringProperty("");
+		if (type==AX) {
+			ammunitionAmount = new SimpleIntegerProperty(120);
+			hurt = new SimpleIntegerProperty(DAMAGE-5);
+			stringType.setValue("AX");
+		}else if(type == GUN) {
+			ammunitionAmount = new SimpleIntegerProperty(20);
+			hurt = new SimpleIntegerProperty(DAMAGE);
+			stringType.setValue("GUN");
 		}else if (type == RIFLE) {
-			ammunitionAmount = 150;
-			hurt= DAMAGE*3;
+			ammunitionAmount = new SimpleIntegerProperty(150);
+			hurt= new SimpleIntegerProperty(DAMAGE*3);
+			stringType.setValue("RIFLE");
 		}else if(type == SNIPER) {
-			ammunitionAmount = 10;
-			hurt= DAMAGE*6;
+			ammunitionAmount = new SimpleIntegerProperty(10);
+			hurt= new SimpleIntegerProperty(DAMAGE*3);
+			stringType.setValue("SNIPER");
 		}
 	}
  
 	//GETTER AND SETTER METHODS 
 	
-	public int getType() {
+	public IntegerProperty getType() {
 		return type;
 	}
 
-	public void setType(int type) {
+	public void setType(IntegerProperty type) {
 		this.type = type;
 	}
 
-	public int getAmmunitionAmount() {
+	public IntegerProperty getAmmunitionAmount() {
 		return ammunitionAmount;
 	}
 
-	public void setAmmunitionAmount(int ammunitionAmount) {
+	public void setAmmunitionAmount(IntegerProperty ammunitionAmount) {
 		this.ammunitionAmount = ammunitionAmount;
 	}
 
-	public int getHurt() {
+	public IntegerProperty getHurt() {
 		return hurt;
 	}
 
-	public void setHurt(int hurt) {
+	public void setHurt(IntegerProperty hurt) {
 		this.hurt = hurt;
+	}
+
+	public StringProperty getStringType() {
+		return stringType;
 	}
 
 }
