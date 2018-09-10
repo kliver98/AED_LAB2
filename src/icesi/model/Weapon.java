@@ -3,49 +3,77 @@ package icesi.model;
 public class Weapon {
 	
 	//CONSTANTS
-	
-	public static int AX  =1;
-	public static int GUN  =2;
-	public static int RIFLE = 3;
-	public static int SNIPER = 4;
+	/**
+	 * Constant that represents the weapon ax.<br>
+	 */
+	public static final int AX  = 1;
+	/**
+	 * Constant that represents the weapon gun.<br>
+	 */
+	public static final int GUN  = 2;
+	/**
+	 * Constant that represents the weapon rifle.<br>
+	 */
+	public static final int RIFLE = 3;
+	/**
+	 * Constant that represents the weapon sniper.<br>
+	 */
+	public static final int SNIPER = 4;
+	/**
+	 * Attribute that represents the damage made by the weapon<br>
+	 */
+	public static final int DAMAGE = 10;
 	//ATTRIBUTES
-	private int name;
+	/**
+	 * Attribute that represents the type of the weapon.<br>
+	 */
+	private int type;
+	/**
+	 * Attribute that represents the ammunition amount of the weapon<br>
+	 */
 	private int ammunitionAmount;
+	/**
+	 * Attribute that represents how much hurt makes the weapon<br>
+	 */
 	private int hurt;
-	
 	//RELATIONS 
 	
-	//********   BUILD METHODS   ******
-	
-	//FIRST BUILD METHOD 
+	/**
+	 * Construct a Weapon by default<br>
+	 * With name equals to AX, ammunitionAmount to 0, and hurt equals to 5<br>
+	 */
 	public Weapon() {
-		 name =1;
+		type =AX;
 		 ammunitionAmount = 0;	 
 		 hurt = 5;
 	}
 	
-	//SECOND BUILD METHOD
-	public Weapon(int name ) {
-		if(name ==2) {
+	/**
+	 * Construct a Weapon and put the ammunitonAmount and hurt depending to the type of weapon<br>
+	 * @param name
+	 */
+	public Weapon(int type ) {
+		this.type = type;
+		if(type == GUN) {
 			ammunitionAmount = 20;
-			hurt = 10;
-		}else if (name ==3) {
+			hurt = DAMAGE;
+		}else if (type == RIFLE) {
 			ammunitionAmount = 150;
-			hurt= 30;
-		}else if(name == 4) {
+			hurt= DAMAGE*3;
+		}else if(type == SNIPER) {
 			ammunitionAmount = 10;
-			hurt= 60;
+			hurt= DAMAGE*6;
 		}
 	}
  
 	//GETTER AND SETTER METHODS 
 	
-	public int getName() {
-		return name;
+	public int getType() {
+		return type;
 	}
 
-	public void setName(int name) {
-		this.name = name;
+	public void setType(int type) {
+		this.type = type;
 	}
 
 	public int getAmmunitionAmount() {

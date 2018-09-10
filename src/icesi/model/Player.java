@@ -5,18 +5,34 @@ public class Player {
 
 	//CONSTANTS
 	//ATTRIBUTES
+	/**
+	 * Attribute that represents the ranking of the player<br>
+	 */
 	private int ranking;
+	/**
+	 * Attribute that represents user's nickname<br>
+	 */
 	private  String nickName;
+	/**
+	 * Attribute that represents the ping that user has to the server<br>
+	 */
 	private long ping;
+	/**
+	 * Attribute that represents the platform where the user is connected<br>
+	 */
+	private String platform;
+	//RELATIONS
 	
-	
-	//RELATIONS 
-	//BUILD METHOD
-	
+	/**
+	 * Construct a Player with the specified nickName<br>
+	 * @param nickName of the user<br>
+	 */
 	public Player(String nickName) {
 		ranking = 0;	
 	}
+	
 	//GETTER AND SETTER METHODS
+	
 	public int getRanking() {
 		return ranking;
 	}
@@ -40,13 +56,13 @@ public class Player {
 	public void setPing(long ping) {
 		this.ping = ping;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
+	public String getPlatform() {
+		return platform;
+	}
+
+	public void setPlatform(String platform) {
+		this.platform = platform;
+	}
 
 }
