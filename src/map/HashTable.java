@@ -8,10 +8,15 @@ public class HashTable<K,V> implements ITable<K,V> {
 	/**
 	 * Attribute that represents all the elements stored in the hash table<br>
 	 */
-	private Pair<K,V>[] data;
+	private NodeHash<K,V>[] data;
 	
 	/**
-	 * Attribute that represents the keys stored in the hash table<br>
+	 * Attribute that represents the maximum value percentage that data array must have to not do re-hashing<br> 
+	 */
+	private double maxUtilPercentage = 70;
+	
+	/**
+	 * Attribute that represents the slots stored in the hash table (Not the number of keys because it may be collisions)<br>
 	 */
 	private int size;
 	
@@ -36,42 +41,60 @@ public class HashTable<K,V> implements ITable<K,V> {
 	 */
 	public HashTable() {
 		length = LENGTHS[0];
-		data = new Pair[length];
+		data = new NodeHash[length];
 		size = 0;
 		capacity = 0;
 	}
 	
 	@Override
 	public boolean put(K key, V value) {
-		boolean succed = false;
-		int i = hashCode(key);
-		if ( i != -1 ) {
-			data[i] = new Pair<K,V>(key,value);
-			succed = true;
+		int i = hashCode(key), j = 0;
+		boolean rst = false;
+		if ( data[i] == null ) {
+			data[i] = new NodeHash<K,V>(key,value);
 			size+=1;
+			rst = true;
+		}else {
+			if (data[i].getSize() == 0)
+				data[i].createDataArray();
+			data[i].addExtra(new NodeHash<K,V>(key,value));
+			j = data[i].getSize()-1;
+			rst = data[i].getData()[j].getValue().equals(value);
 		}
 		calculateCapacity();
-		return succed;
+		if ( capacity > maxUtilPercentage )
+			reHashing();
+		return rst;
 	}
 	
 	@Override
 	public int hashCode(Object key) {
 		int k = 0;
-		k = (Integer.parseInt(key.toString()) & 0x7fffffff) % size;
-		return k;
+		char[] chars = key.toString().toCharArray();
+		for (int i = 0; i < chars.length; i++) {
+			k += Character.getNumericValue(chars[i]);
+			if ( k > length*5 ) {
+				k = k % size;
+			}
+		}
+		if ( k > length-1 )
+			k = k % size;
+		return (k & 0x7fffffff);
 	}
 	
 	@Override
-	public V remove(Object key) {
+	public boolean remove(Object key) {
 		int i = hashCode(key);
-		V deleted = null;
-		if ( i!=-1 ) {
-			deleted = data[i].getValue();
+		boolean rst = false;
+		if ( data[i].getKey().toString().equals(key.toString()) ) {
 			data[i] = null;
 			size-=1;
+			calculateCapacity();
+			rst = true;
+		}else { //If was not the same key lexicographically
+			rst = data[i].deleteNodeHash(key);
 		}
-		calculateCapacity();
-		return deleted;
+		return rst;
 	}
 	
 	@Override
@@ -82,10 +105,13 @@ public class HashTable<K,V> implements ITable<K,V> {
 	@Override
 	public V get(Object key) {
 		int i = hashCode(key);
-		V rst = null;
-		if ( i != -1 )
-			rst = data[i].getValue();
-		return rst;
+		V tmp = null;
+		if ( data[i].getValue().toString().equals(key.toString()) )
+			tmp = data[i].getValue();
+		else {
+			tmp = data[i].searchNodeHash(key);
+		}
+		return tmp;
 	}
 
 	@Override
@@ -109,7 +135,7 @@ public class HashTable<K,V> implements ITable<K,V> {
 	@Override
 	public boolean clear() {
 		length = LENGTHS[0];
-		data = new Pair[length];
+		data = new NodeHash[length];
 		size = 0;
 		capacity = 0;
 		return isEmpty();
@@ -119,8 +145,8 @@ public class HashTable<K,V> implements ITable<K,V> {
 	 * Calculate the percentage of slots in the array that are being used<br>
 	 */
 	private void calculateCapacity() {
-		double newCapacity = (double)size()/length;
-		this.capacity = newCapacity;
+		double newCapacity = (double)size/length;
+		this.capacity = newCapacity*100;
 	}
 	
 	/**
@@ -135,7 +161,7 @@ public class HashTable<K,V> implements ITable<K,V> {
 	 * Method that copy all the data into a new array larger<br>
 	 * @return true if it was possible expand the array<br>
 	 */
-	public boolean reHashing() {
+	private boolean reHashing() {
 		int newLength = 0;
 		boolean entered = false;
 		for (int i = 0; i < LENGTHS.length-1 && !entered; i++) {
@@ -146,11 +172,12 @@ public class HashTable<K,V> implements ITable<K,V> {
 		}
 		if ( entered ) { //Copy the data to the new array
 			length = newLength;
-			Pair<K,V>[] tmp = data;
-			data = new Pair[length];
-			for (int i = 0; i < tmp.length; i++) {
-				data[i] = tmp[i];
+			NodeHash<K,V>[] tmp = new NodeHash[length];
+			for (int i = 0; i < data.length; i++) {
+				tmp[i] = data[i];
 			}
+			data = new NodeHash[length];
+			data = tmp;
 		}
 		return entered;
 	}

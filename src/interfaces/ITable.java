@@ -10,7 +10,8 @@ public interface ITable<K,V> {
 	public V get(Object key);
 	
 	/**
-	 * Returns the hash code value for the key specified. It may be collisions.<br>
+	 * Returns the hash code value for the key specified.<br>
+	 * @param key - to be transform<br>
 	 * @return the hash code value for this map<br>
 	 */
 	public int hashCode(Object key);
@@ -26,7 +27,7 @@ public interface ITable<K,V> {
 	 * If the map previously contained a mapping for the key, the old value is replaced by the specified value.<br>
 	 * @param key - key with which the specified value is to be associated<br>
 	 * @param value - value to be associated with the specified key<br>
-	 * @return true if was possible to put the value on the key<br>
+	 * @return true if it was possible to put the value into the data array of the table<br>
 	 */
 	public boolean put(K key,V value);
 	
@@ -34,9 +35,9 @@ public interface ITable<K,V> {
 	 * Removes the mapping for a key from this map if it is present.<br>
 	 * If this map permit null keys, then it will be deleted that one.<br>
 	 * @param key - key whose mapping is to be removed from the map<br>
-	 * @return the previous value associated with key, or null if there was no mapping for key.<br>
+	 * @return true if it was possible to remove the element(s) with the specified key (May be a list of elements with the same key).<br>
 	 */
-	public V remove(Object key);
+	public boolean remove(Object key);
 	
 	/**
 	 * Returns the number of key-value mappings in this map.<br>
