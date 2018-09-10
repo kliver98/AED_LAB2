@@ -7,14 +7,14 @@ public interface ITable<K,V> {
 	 * @param key - the key whose associated value is to be returned<br>
 	 * @return the value to which the specified key is mapped, or null if this map contains no mapping for the key<br>
 	 */
-	public V get(Object key);
+	public V get(K key);
 	
 	/**
 	 * Returns the hash code value for the key specified.<br>
 	 * @param key - to be transform<br>
 	 * @return the hash code value for this map<br>
 	 */
-	public int hashCode(Object key);
+	public int hashCode(K key);
 	
 	/**
 	 * Returns true if this map contains no key-value mappings.<br>
