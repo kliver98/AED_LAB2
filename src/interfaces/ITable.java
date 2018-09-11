@@ -37,7 +37,7 @@ public interface ITable<K,V> {
 	 * @param key - key whose mapping is to be removed from the map<br>
 	 * @return true if it was possible to remove the element(s) with the specified key (May be a list of elements with the same key).<br>
 	 */
-	public boolean remove(Object key);
+	public boolean remove(K key);
 	
 	/**
 	 * Returns the number of key-value mappings in this map.<br>

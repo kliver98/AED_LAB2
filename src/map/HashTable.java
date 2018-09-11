@@ -68,7 +68,7 @@ public class HashTable<K,V> implements ITable<K,V> {
 	}
 	
 	@Override
-	public int hashCode(Object key) {
+	public int hashCode(K key) {
 		int k = 0;
 		char[] chars = key.toString().toCharArray();
 		for (int i = 0; i < chars.length; i++) {
@@ -83,7 +83,7 @@ public class HashTable<K,V> implements ITable<K,V> {
 	}
 	
 	@Override
-	public boolean remove(Object key) {
+	public boolean remove(K key) {
 		int i = hashCode(key);
 		boolean rst = false;
 		if ( data[i].getKey().toString().equals(key.toString()) ) {
@@ -103,7 +103,7 @@ public class HashTable<K,V> implements ITable<K,V> {
 	}
 
 	@Override
-	public V get(Object key) {
+	public V get(K key) {
 		int i = hashCode(key);
 		V tmp = null;
 		if ( data[i].getValue().toString().equals(key.toString()) )
