@@ -3,11 +3,9 @@ package icesi;
 import java.io.File;
 import java.io.IOException;
 import java.util.prefs.Preferences;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-
 import icesi.model.Weapon;
 import icesi.model.WeaponListWrapper;
 import icesi.view.RootLayoutController;
@@ -17,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -34,9 +33,9 @@ public class MainApp extends Application {
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
         this.primaryStage.setTitle(APP_NAME);
-
-        // Set the application icon.
-//        this.primaryStage.getIcons().add(new Image("file:resources/images/icon_main.png"));
+        
+        //App icon
+        this.primaryStage.getIcons().add(new Image("file:resources/images/fortnite_1.png"));
 
         initRootLayout();
         showWeaponOverview();
@@ -44,16 +43,16 @@ public class MainApp extends Application {
 	
     public MainApp() {
         // Add some sample data
-    	weaponData.add(new Weapon());
     	weaponData.add(new Weapon(2));
-    	weaponData.add(new Weapon());
-    	weaponData.add(new Weapon(1));
-    	weaponData.add(new Weapon(1));
+    	weaponData.add(new Weapon(2));
     	weaponData.add(new Weapon(2));
     	weaponData.add(new Weapon(3));
-    	weaponData.add(new Weapon(1));
     	weaponData.add(new Weapon(2));
-    	weaponData.add(new Weapon(1));
+    	weaponData.add(new Weapon(2));
+    	weaponData.add(new Weapon(3));
+    	weaponData.add(new Weapon(3));
+    	weaponData.add(new Weapon(2));
+    	weaponData.add(new Weapon(3));
     }
 	
 	public ObservableList<Weapon> getWeaponData() {
