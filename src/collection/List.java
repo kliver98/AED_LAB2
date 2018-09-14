@@ -55,7 +55,6 @@ public class List<T> implements IStack<T>, IQueue<T>{
 		if (!isEmpty()) {
 			rst = last();
 			removeLastElement();
-			size--;
 		}
 		return rst;
 	}

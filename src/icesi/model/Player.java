@@ -1,5 +1,8 @@
 package icesi.model;
 
+import interfaces.IStack;
+import collection.List;
+
 public class Player {
 
 
@@ -21,6 +24,10 @@ public class Player {
 	 * Attribute that represents the platform where the user is connected<br>
 	 */
 	private String platform;
+	/**
+	 * Attribute that represents the weapons that user have been collected<br>
+	 */
+	private IStack<Weapon> weapons;
 	//RELATIONS
 	
 	/**
@@ -28,7 +35,14 @@ public class Player {
 	 * @param nickName of the user<br>
 	 */
 	public Player(String nickName) {
-		ranking = 0;	
+		ranking = 0;
+		weapons = new List<Weapon>();
+	}
+	
+	public void chargeWeaponsOfTest() {
+		for (int i = 0; i < 10; i++) {
+			weapons.push(new Weapon((i%4)+1));
+		}
 	}
 	
 	//GETTER AND SETTER METHODS
@@ -63,6 +77,14 @@ public class Player {
 
 	public void setPlatform(String platform) {
 		this.platform = platform;
+	}
+
+	public IStack<Weapon> getWeapons() {
+		return weapons;
+	}
+
+	public void setWeapons(IStack<Weapon> weapons) {
+		this.weapons = weapons;
 	}
 
 }

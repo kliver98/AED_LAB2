@@ -3,9 +3,11 @@ package icesi;
 import java.io.File;
 import java.io.IOException;
 import java.util.prefs.Preferences;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import icesi.model.Player;
 import icesi.model.Weapon;
 import icesi.model.WeaponListWrapper;
 import icesi.view.RootLayoutController;
@@ -18,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
@@ -26,8 +29,8 @@ public class MainApp extends Application {
 	
 	private Stage primaryStage;
 	private BorderPane rootLayout;
-	
 	private ObservableList<Weapon> weaponData = FXCollections.observableArrayList();
+	private Player actualPlayer;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -41,18 +44,26 @@ public class MainApp extends Application {
         showWeaponOverview();
 	}
 	
+	public void removeWeaponFromStack() {
+		actualPlayer.getWeapons().pop();
+		System.out.println("Size: "+actualPlayer.getWeapons().size());
+	}
+	
+	public Weapon getWeaponFromStack() {
+		return actualPlayer.getWeapons().last();
+	}
+	
+	public void addWeaponToTheStack(Weapon weapon) {
+		actualPlayer.getWeapons().push(weapon);
+	}
+	
     public MainApp() {
         // Add some sample data
-    	weaponData.add(new Weapon(2));
-    	weaponData.add(new Weapon(2));
-    	weaponData.add(new Weapon(2));
-    	weaponData.add(new Weapon(3));
-    	weaponData.add(new Weapon(2));
-    	weaponData.add(new Weapon(2));
-    	weaponData.add(new Weapon(3));
-    	weaponData.add(new Weapon(3));
-    	weaponData.add(new Weapon(2));
-    	weaponData.add(new Weapon(3));
+    	actualPlayer = new Player("Test");
+    	actualPlayer.chargeWeaponsOfTest();
+    	for (int i = 0; i < 42; i++) {
+			weaponData.add(new Weapon((i%3)+2));
+		}
     }
 	
 	public ObservableList<Weapon> getWeaponData() {
@@ -171,6 +182,38 @@ public class MainApp extends Application {
 //                    .showException(e);
         }
     }
+    
+    public void showAvaibleWeapons() {
+        try {
+            // Load the fxml file and create a new stage for the popup.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/BirthdayStatistics.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Birthday Statistics");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the persons into the controller.
+//            BirthdayStatisticsController controller = loader.getController();
+//            controller.setPersonData(personData);
+
+            dialogStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+	public Player getActualPlayer() {
+		return actualPlayer;
+	}
+
+	public void setActualPlayer(Player actualPlayer) {
+		this.actualPlayer = actualPlayer;
+	}
 
 	public static void main(String[] args) {
 		launch(args);

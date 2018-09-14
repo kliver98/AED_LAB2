@@ -9,6 +9,11 @@ public class RootLayoutController {
 
 	private MainApp mainApp;
 	
+    @FXML
+    private void handleAvaibleWeapons() {
+      mainApp.showAvaibleWeapons();
+    }
+	
 	@FXML
     private void handleExit() {
 		System.exit(0);

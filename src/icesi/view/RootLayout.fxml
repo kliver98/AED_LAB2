@@ -19,8 +19,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Ver">
             <items>
-              <MenuItem mnemonicParsing="false" text="Armas Disponibles" />
-                  <MenuItem mnemonicParsing="false" text="Estado de arma actual" />
+              <MenuItem mnemonicParsing="false" onAction="#handleAvaibleWeapons" text="Armas Disponibles" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Ayuda">

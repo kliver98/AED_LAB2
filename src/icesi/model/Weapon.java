@@ -85,31 +85,35 @@ public class Weapon {
  
 	//GETTER AND SETTER METHODS 
 	
-	public IntegerProperty getType() {
-		return type;
+	public int getType() {
+		return type.get();
 	}
 
 	public void setType(IntegerProperty type) {
 		this.type = type;
 	}
 
-	public IntegerProperty getAmmunitionAmount() {
-		return ammunitionAmount;
+	public int getAmmunitionAmount() {
+		return ammunitionAmount.get();
 	}
 
 	public void setAmmunitionAmount(IntegerProperty ammunitionAmount) {
 		this.ammunitionAmount = ammunitionAmount;
 	}
 
-	public IntegerProperty getHurt() {
-		return hurt;
+	public int getHurt() {
+		return hurt.get();
 	}
 
 	public void setHurt(IntegerProperty hurt) {
 		this.hurt = hurt;
 	}
 
-	public StringProperty getStringType() {
+	public String getStringType() {
+		return stringType.get();
+	}
+	
+	public StringProperty getStringTypeProperty() {
 		return stringType;
 	}
 
