@@ -40,7 +40,6 @@ public class MainApp extends Application {
 	
 	public void removeWeaponFromStack() {
 		actualPlayer.getWeapons().pop();
-		System.out.println("Size: "+actualPlayer.getWeapons().size());
 	}
 	
 	public Weapon getWeaponFromStack() {
@@ -54,7 +53,6 @@ public class MainApp extends Application {
     public MainApp() {
         // Add some sample data
     	actualPlayer = new Player("Test");
-    	actualPlayer.chargeWeaponsOfTest();
     	for (int i = 0; i < 42; i++) {
 			weaponData.add(new Weapon((i%3)+2));
 		}
@@ -76,6 +74,7 @@ public class MainApp extends Application {
             WeaponOverviewController controller = new WeaponOverviewController();
             controller = loader.getController();
             controller.setMainApp(this);
+            controller.initDefaultWeapon(getWeaponFromStack());
         } catch (IOException e) {
             e.printStackTrace();
         }

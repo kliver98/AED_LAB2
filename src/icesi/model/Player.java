@@ -37,16 +37,11 @@ public class Player {
 	public Player(String nickName) {
 		ranking = 0;
 		weapons = new List<Weapon>();
+		initDefault();
 	}
 	
-	public void chargeWeaponsOfTest() {
+	private void initDefault() {
 		weapons.push(new Weapon());
-		for (int i = 1; i < 10; i++) {
-			int val = (i%4)+1;
-			if ( val<2 )
-				val = 2;
-			weapons.push(new Weapon(val));
-		}
 	}
 	
 	//GETTER AND SETTER METHODS

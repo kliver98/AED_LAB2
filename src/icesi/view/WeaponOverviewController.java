@@ -2,11 +2,11 @@ package icesi.view;
 
 import icesi.MainApp;
 import icesi.model.Weapon;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 public class WeaponOverviewController {
 
@@ -53,27 +53,22 @@ public class WeaponOverviewController {
     	System.out.println("I'm reloading");
     }
     
-    @FXML
-    private void handleDropWeapon() {
-    	mainApp.removeWeaponFromStack();
-    	Weapon weapon = mainApp.getWeaponFromStack();
-    	showWeaponDetails(weapon);
-    }
-    
     private void collectWeapon(Weapon weapon) {
     	//Code to add the weapon into the stack
     	mainApp.addWeaponToTheStack(weapon);
-    	System.out.println(mainApp.getActualPlayer().getWeapons().size());
-    	System.out.println("Hey! It works");
     }
 	
     @FXML
     private void initialize() {
         // Initialize the person table with the two columns.
-    	weaponsColumn.setCellValueFactory(cellData -> ObservableValue<String>cellData.getValue().getStringType());
+    	weaponsColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStringType()));
        	showWeaponDetails(null);
         weaponTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showWeaponDetails(newValue));
-//        weaponTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> collectWeapon(newValue));
+        weaponTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> collectWeapon(newValue));
+    }
+    
+    public void initDefaultWeapon(Weapon weapon) {
+    	this.showWeaponDetails(weapon);
     }
     
     public void setMainApp(MainApp mainApp) {
