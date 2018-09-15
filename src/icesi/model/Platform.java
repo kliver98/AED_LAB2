@@ -16,4 +16,18 @@ public class Platform {
 	 */
 	public static final String PLAYSTATION = "PlayStation";
 	
+	
+	String typePlatform;
+	public Platform( String typePlatform) {
+		 this.typePlatform = typePlatform;
+		
+	}
+	public String getTypePlatform() {
+		return typePlatform;
+	}
+	public void setTypePlatform(String typePlatform) {
+		this.typePlatform = typePlatform;
+	}
+	
+	
 }
