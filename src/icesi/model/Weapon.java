@@ -1,6 +1,5 @@
 package icesi.model;
 
-import javafx.beans.property.StringProperty;
 
 public class Weapon {
 	
