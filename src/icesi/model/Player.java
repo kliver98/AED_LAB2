@@ -40,8 +40,12 @@ public class Player {
 	}
 	
 	public void chargeWeaponsOfTest() {
-		for (int i = 0; i < 10; i++) {
-			weapons.push(new Weapon((i%4)+1));
+		weapons.push(new Weapon());
+		for (int i = 1; i < 10; i++) {
+			int val = (i%4)+1;
+			if ( val<2 )
+				val = 2;
+			weapons.push(new Weapon(val));
 		}
 	}
 	

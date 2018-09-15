@@ -11,15 +11,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="Archivo">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#handleOpen" text="Abrir" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleSave" text="Guardar" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleSaveAs" text="Guardar Como" />
                   <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Salir" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Ver">
-            <items>
-              <MenuItem mnemonicParsing="false" onAction="#handleAvaibleWeapons" text="Armas Disponibles" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Ayuda">
