@@ -3,44 +3,43 @@ package interfaces;
 public interface IQueue<T> {
 	
 	/**
-	 * Agrega un elemento en la primera pocision.
-	 * @param e, Elemento a insertar. Dato generico
+	 * Add an element in the first position.
+	 * @param e, Element to insert. Generic data
 	 */
 	public void offer(T e);
 	
 	/**
-	 * Elimina el primer elemento que se encuentra en la lista.
+	 * Remove the first element that is in the list.
 	 */
 	public void removeFirstElement();
 	
 	/**
-	 * Retorna el objeto T, y luego lo elimina
-	 * @return T, tipo de dato generico
+	 * Returns the T object, and then removes it
+	 * @return T, generic data type
 	 */
 	public T poll();
 	
 	/**
-	 * Retorna el elemento T.
-	 * @return T, Tipo de dato generico.
+	 * Returns element T.
+	 * @return T, Generic data type.
 	 */
 	public T element();
-
-	/**
-	 * Retorna el primer elemento que se encuentra en la lista.
-	 * @return T, tipo de dato generico.
+	
+ 	/**
+	 * Returns the first element that is in the list.
+	 * @return T, generic data type.
 	 */
 	public T first();
 	
 	/**
-	 * Retorna el tamaño de la lista.
-	 * @return int, Tamaño total.
+	 * Returns the size of the list.
+	 * @return int, Total size.
 	 */
 	public int size();
 	
 	/**
-	 * Retorna un boolean dependiedo de si la lista esta vacia o no.
-	 * @return boolean, True si esta vacia. False de lo contrario.
+	 * Returns a boolean depending on whether the list is empty or not.
+	 * @return boolean, True if empty. False otherwise.
 	 */
 	public boolean isEmpty();
-	
 }
