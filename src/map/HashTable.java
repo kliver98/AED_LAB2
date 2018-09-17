@@ -65,7 +65,6 @@ public class HashTable<K,V> implements ITable<K,V> {
 					data[i].addExtra(node);
 				j = data[i].getSize()-1;
 				rst = data[i].getData()[j].getValue().equals(value);
-				length+=1;
 			} else {
 				data[i].setValue(value);
 			}
