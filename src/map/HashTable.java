@@ -16,14 +16,14 @@ public class HashTable<K,V> implements ITable<K,V> {
 	private double maxUtilPercentage = 70;
 	
 	/**
-	 * Attribute that represents the slots stored in the hash table (Not the number of keys because it may be collisions)<br>
-	 */
-	private int size;
-	
-	/**
-	 * Attribute that represents the length of slots in the hash table<br> 
+	 * Attribute that represents the slots occupied/stored in the hash table.<br>
 	 */
 	private int length;
+	
+	/**
+	 * Attribute that represents the size of slots in the hash table<br> 
+	 */
+	private int size;
 	
 	/**
 	 * Attribute that represents the percent of capacity available used of slots in the data array<br>
@@ -40,26 +40,35 @@ public class HashTable<K,V> implements ITable<K,V> {
 	 * @param size - size of the HashMap<br>
 	 */
 	public HashTable() {
-		length = LENGTHS[0];
-		data = new NodeHash[length];
-		size = 0;
+		size = LENGTHS[0];
+		length = 0;
+		data = new NodeHash[size];
 		capacity = 0;
 	}
 	
 	@Override
 	public boolean put(K key, V value) {
 		int i = hashCode(key), j = 0;
+		NodeHash<K,V> node = new NodeHash<K,V>(key,value);
 		boolean rst = false;
 		if ( data[i] == null ) {
-			data[i] = new NodeHash<K,V>(key,value);
-			size+=1;
+			data[i] = node;
+			length+=1;
 			rst = true;
 		}else {
-			if (data[i].getSize() == 0)
-				data[i].createDataArray();
-			data[i].addExtra(new NodeHash<K,V>(key,value));
-			j = data[i].getSize()-1;
-			rst = data[i].getData()[j].getValue().equals(value);
+			if ( !data[i].getKey().equals(key) ) {				
+				if (data[i].getSize() == 0)
+					data[i].createDataArray();
+				if ( data[i].getKey().equals(key) && data[i].getValue().equals(value) )
+					data[i].setValue(value);
+				else
+					data[i].addExtra(node);
+				j = data[i].getSize()-1;
+				rst = data[i].getData()[j].getValue().equals(value);
+				length+=1;
+			} else {
+				data[i].setValue(value);
+			}
 		}
 		calculateCapacity();
 		if ( capacity > maxUtilPercentage )
@@ -73,11 +82,11 @@ public class HashTable<K,V> implements ITable<K,V> {
 		char[] chars = key.toString().toCharArray();
 		for (int i = 0; i < chars.length; i++) {
 			k += Character.getNumericValue(chars[i]);
-			if ( k > length*5 ) {
+			if ( k > size*2 ) {
 				k = k % size;
 			}
 		}
-		if ( k > length-1 )
+		if ( k > size-1 )
 			k = k % size;
 		return (k & 0x7fffffff);
 	}
@@ -88,7 +97,7 @@ public class HashTable<K,V> implements ITable<K,V> {
 		boolean rst = false;
 		if ( data[i].getKey().toString().equals(key.toString()) ) {
 			data[i] = null;
-			size-=1;
+			length-=1;
 			calculateCapacity();
 			rst = true;
 		}else { //If was not the same key lexicographically
@@ -99,24 +108,27 @@ public class HashTable<K,V> implements ITable<K,V> {
 	
 	@Override
 	public int size() {
-		return size;
+		return length;
 	}
 
 	@Override
-	public V get(K key) {
-		int i = hashCode(key);
+	public V get(Object key) {
+		int i = hashCode((K)key);
 		V tmp = null;
-		if ( data[i].getValue().toString().equals(key.toString()) )
-			tmp = data[i].getValue();
-		else {
-			tmp = data[i].searchNodeHash(key);
+		if ( data!=null ) {
+			if (data[i]!=null && data[i].getKey().toString().equals(key.toString()) )
+				tmp = data[i].getValue();
+			else {
+				if ( data[i]!=null )
+					tmp = data[i].searchNodeHash(key);
+			}
 		}
 		return tmp;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		return size==0 ? true:false;
+		return length==0 ? true:false;
 	}
 	
 	@Override
@@ -134,10 +146,10 @@ public class HashTable<K,V> implements ITable<K,V> {
 
 	@Override
 	public boolean clear() {
-		length = LENGTHS[0];
-		data = new NodeHash[length];
-		size = 0;
+		size = LENGTHS[0];
+		length = 0;
 		capacity = 0;
+		data = new NodeHash[length];
 		return isEmpty();
 	}
 	
@@ -145,7 +157,7 @@ public class HashTable<K,V> implements ITable<K,V> {
 	 * Calculate the percentage of slots in the array that are being used<br>
 	 */
 	private void calculateCapacity() {
-		double newCapacity = (double)size/length;
+		double newCapacity = (double)length/size;
 		this.capacity = newCapacity*100;
 	}
 	
@@ -165,18 +177,18 @@ public class HashTable<K,V> implements ITable<K,V> {
 		int newLength = 0;
 		boolean entered = false;
 		for (int i = 0; i < LENGTHS.length-1 && !entered; i++) {
-			if ( length == LENGTHS[i] ) {
+			if ( size == LENGTHS[i] ) {
 				newLength = LENGTHS[i+1];
 				entered = true;
 			}
 		}
 		if ( entered ) { //Copy the data to the new array
-			length = newLength;
-			NodeHash<K,V>[] tmp = new NodeHash[length];
+			size = newLength;
+			NodeHash<K,V>[] tmp = new NodeHash[size];
 			for (int i = 0; i < data.length; i++) {
 				tmp[i] = data[i];
 			}
-			data = new NodeHash[length];
+			data = new NodeHash[size];
 			data = tmp;
 		}
 		return entered;
