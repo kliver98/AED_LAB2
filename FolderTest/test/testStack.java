@@ -8,16 +8,16 @@ import org.junit.jupiter.api.Test;
 import collection.*;
 import interfaces.*;
 
-public class testQueue {
+public class testStack {
 	
-	private IQueue<Object> lista;
+	private IStack<Object> lista;
 	
 	private void setupEscenario1() {
 		lista = new List<Object>();
 		
 		for (int i = 0; i < 100; i++) {
-			lista.offer(i*2);
-			lista.offer(i+2);
+			lista.push(i*2);
+			lista.push(i+2);
 		}
 	}
 	
@@ -25,8 +25,8 @@ public class testQueue {
 		lista = new List<Object>();
 		
 		for (int i = 0; i < 200; i++) {
-			lista.offer((i*2)+1);
-			lista.offer((i+2)*5);
+			lista.push((i*2)+1);
+			lista.push((i+2)*5);
 		}
 	}
 	
@@ -34,7 +34,7 @@ public class testQueue {
 		lista = new List<Object>();
 		
 		for (int i = 0; i < 200; i++) {
-			lista.offer((Math.pow(i, Math.sqrt(i)))+1);
+			lista.push((Math.pow(i, Math.sqrt(i)))+1);
 		}
 	}
 	
@@ -43,14 +43,14 @@ public class testQueue {
 	}
 	
 	@Test
-	public void testPoll() {
+	public void testPop() {
 		setupEscenario1();
 		
-		int i = 0;
+		int i = 99;
 		while (!lista.isEmpty()) {
-			assertEquals((i*2),(int) lista.poll());
-			assertEquals((i+2),(int) lista.poll());
-			i++;
+			assertEquals((i+2),(int) lista.pop());
+			assertEquals((i*2),(int) lista.pop());
+			i--;
 		}
 		
 		if (!lista.isEmpty()) 
@@ -58,14 +58,14 @@ public class testQueue {
 	}
 	
 	@Test
-	public void testFirst() {
+	public void testLast() {
 		setupEscenario2();
 		
-		int i = 0;
+		int i = 199;
 		while (!lista.isEmpty()) {
-			assertEquals((i*2)+1,(int) lista.poll());
-			assertEquals((i+2)*5,(int) lista.poll());
-			i++;
+			assertEquals((i+2)*5,(int) lista.pop());
+			assertEquals((i*2)+1,(int) lista.pop());
+			i--;
 		}
 		
 		if (!lista.isEmpty()) 
@@ -73,13 +73,13 @@ public class testQueue {
 	}
 	
 	@Test
-	public void testRemoveFirstElement() {
+	public void testRemoveLastElement() {
 		setupEscenario3();
-		int i = 0;
+		int i = 198;
 		int size = lista.size();
-		lista.removeFirstElement();
+		lista.removeLastElement();
 		
-		assertEquals((Math.pow(i, Math.sqrt(i)))+1, lista.first());
+		assertEquals((Math.pow(i, Math.sqrt(i)))+1, lista.last());
 		
 		if (size == lista.size()) 
 			fail();
@@ -89,20 +89,20 @@ public class testQueue {
 	}
 	
 	@Test
-	public void testOffer() {
+	public void testPush() {
 		setupEscenario4();
 		
 		for (int i = 2; i < Math.pow(25, 2); i *= i) 
-			lista.offer(i*Math.sqrt(18));
+			lista.push(i*Math.sqrt(18));
 
 		assertEquals(4, lista.size());
 		if (lista.isEmpty()) 
 			fail();
 		
-		for (int i = 2; i < Math.pow(25, 2); i *= i) {
-			double x = (double) lista.first();
+		for (int i = 256; i > 1; i = (int) Math.sqrt(i)) {
+			double x = (double) lista.last();
 			assertEquals(x, i*Math.sqrt(18));
-			lista.removeFirstElement();
+			lista.removeLastElement();
 		}
 	}
 	
@@ -114,7 +114,7 @@ public class testQueue {
 			fail();
 		
 		while(!lista.isEmpty()) 
-			lista.removeFirstElement();
+			lista.removeLastElement();
 		
 		if (!lista.isEmpty()) 
 			fail();
