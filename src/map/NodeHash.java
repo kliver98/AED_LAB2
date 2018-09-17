@@ -35,23 +35,23 @@ public class NodeHash<K,V> {
 	public NodeHash(K key, V value) {
 		this.key = key;
 		this.value = value;
-		this.size = 0;
+		this.length = 0;
 	}
 	
 	@SuppressWarnings("unchecked")
 	public void createDataArray() {
-		length = 100;
-		data = new NodeHash[length];
+		size = 1000;
+		data = new NodeHash[size];
 	}
 	
 	@SuppressWarnings("unchecked")
 	private void incrementDataArray() {
-		length *= 2;
-		NodeHash<K,V>[] copy = new NodeHash[length];
+		size *= 2;
+		NodeHash<K,V>[] copy = new NodeHash[size];
 		for (int i = 0; i < data.length; i++) {
 			copy[i] = data[i];
 		}
-		data = new NodeHash[length];
+		data = new NodeHash[size];
 		data = copy;
 	}
 	
@@ -60,11 +60,11 @@ public class NodeHash<K,V> {
 	 * @param add - NodeHash to be added<br>
 	 */
 	public void addExtra(NodeHash<K,V> add) {
-		if ( size >= length )
+		if ( length-2 >= size )
 			incrementDataArray();
 		if ( length <= Integer.MAX_VALUE ) {
-			data[size] = add;
-			size++;
+			data[length] = add;
+			length++;
 		}
 	}
 
@@ -92,9 +92,11 @@ public class NodeHash<K,V> {
 	public V searchNodeHash(Object key) {
 		V rst = null;
 		int i = 0;
-		for (i = 0; i < data.length && rst==null; i++) {
-			if ( key.toString().equals(data[i].getKey().toString()) )
-				rst = data[i].getValue();
+		if ( data!=null ) {
+			for (i = 0; i < data.length && rst==null; i++) {
+				if ( data[i]!=null && key.toString().equals(data[i].getKey().toString()) )
+					rst = data[i].getValue();
+			}
 		}
 		return rst;
 	}
@@ -111,11 +113,11 @@ public class NodeHash<K,V> {
 			if ( key.toString().equals(data[i].getKey().toString()) ) {
 				rst = true;
 				data[i] = null;
-				size--;
+				length--;
 			}
 		}
 		for (int j = i; j < data.length-1 && rst; j++) {
-			data[i] = data[i+1];
+			data[j] = data[j+1];
 		}
 		if ( rst )
 			data[data.length-1] = null;
@@ -138,11 +140,19 @@ public class NodeHash<K,V> {
 	}
 
 	public int getSize() {
-		return size;
+		return length;
 	}
 
 	public NodeHash<K, V>[] getData() {
 		return data;
+	}
+
+	public void setKey(K key) {
+		this.key = key;
+	}
+
+	public void setValue(V value) {
+		this.value = value;
 	}
 	
 }

@@ -40,7 +40,7 @@ public interface ITable<K,V> {
 	public boolean remove(K key);
 	
 	/**
-	 * Returns the number of key-value mappings in this map.<br>
+	 * Returns the number of key-value mappings in this map which has different hash code values.<br>
 	 * If the map contains more than Integer.MAX_VALUE elements, returns Integer.MAX_VALUE.<br>
 	 * @return the number of key-value mappings in this map<br>
 	 */
