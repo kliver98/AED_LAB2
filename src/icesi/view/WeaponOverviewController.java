@@ -23,6 +23,8 @@ public class WeaponOverviewController {
 	 private Label ammunitionAmountLabel;
 	 @FXML
 	 private Label hurtLabel;
+	 @FXML
+	 private Label sizeWeaponsLabel;
 	
 	private MainApp mainApp;
 	
@@ -41,11 +43,23 @@ public class WeaponOverviewController {
     		hurtLabel.setText("");
     		stringTypeLabel.setText("");
     	}
+    	if ( mainApp != null ) {
+    		int size = mainApp.sizeOftheStack();
+    		sizeWeaponsLabel.setText(size+"");
+    	}
     }
     
     @FXML
-    private void handleShootWeapon() {
-    	System.out.println("I'm shooting");
+    private void handleShotWeapon() {
+    	Weapon actual = mainApp.getWeaponFromStack();
+    	int actual_am = actual.getAmmunitionAmount();
+    	if ( actual_am > 0 ) {
+    		actual.setAmmunitionAmount(actual_am-1);
+    	}
+    	if ( mainApp.sizeOftheStack()>1 && (actual_am-1) == 0 ) {
+    		actual = mainApp.deleteWeaponFromStack();
+    	}
+    	showWeaponDetails(actual);
     }
     
     @FXML
@@ -63,8 +77,8 @@ public class WeaponOverviewController {
         // Initialize the person table with the two columns.
     	weaponsColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStringType()));
        	showWeaponDetails(null);
-        weaponTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showWeaponDetails(newValue));
         weaponTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> collectWeapon(newValue));
+        weaponTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showWeaponDetails(newValue));
     }
     
     public void initDefaultWeapon(Weapon weapon) {

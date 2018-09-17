@@ -1,8 +1,6 @@
 package icesi;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.prefs.Preferences;
 import icesi.model.Player;
 import icesi.model.Weapon;
 import icesi.view.RootLayoutController;
@@ -46,8 +44,17 @@ public class MainApp extends Application {
 		return actualPlayer.getWeapons().last();
 	}
 	
+	public Weapon deleteWeaponFromStack() {
+		actualPlayer.getWeapons().pop();
+		return getWeaponFromStack();
+	}
+	
 	public void addWeaponToTheStack(Weapon weapon) {
 		actualPlayer.getWeapons().push(weapon);
+	}
+	
+	public int sizeOftheStack() {
+		return actualPlayer.getWeapons().size();
 	}
 	
     public MainApp() {
@@ -103,16 +110,6 @@ public class MainApp extends Application {
 	
     public Stage getPrimaryStage() {
         return primaryStage;
-    }
-    
-    public File getWeaponFilePath() {
-        Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
-        String filePath = prefs.get("filePath", null);
-        if (filePath != null) {
-            return new File(filePath);
-        } else {
-            return null;
-        }
     }
 
 	public Player getActualPlayer() {
