@@ -81,6 +81,8 @@ public class HashTable<K,V> implements ITable<K,V> {
 		char[] chars = key.toString().toCharArray();
 		for (int i = 0; i < chars.length; i++) {
 			k += Character.getNumericValue(chars[i]);
+			if ( Character.getNumericValue(chars[i])==0 )
+				k += chars[i]*2;
 			if ( k > size*2 ) {
 				k = k % size;
 			}
