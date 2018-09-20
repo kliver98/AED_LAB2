@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import icesi.model.Fornite;
 import icesi.model.Player;
 
-class TestFornite {
+public class TestFornite {
 	
 	private Fornite fornite;
 	private void stage1() {
@@ -15,7 +15,7 @@ class TestFornite {
 	}
 	
 	@Test
-	private	void testFillLeves() {
+	public void testFillLeves() {
 		stage1();
 		int amountExpected = 100;
 		fornite.getServer().fillServer(100);
@@ -29,7 +29,7 @@ class TestFornite {
 	}
 
 	@Test
-	private void testTypePing() {
+	public void testTypePing() {
 		stage1();
 
 		Player a = new Player();
