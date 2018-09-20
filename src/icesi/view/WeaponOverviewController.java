@@ -56,7 +56,8 @@ public class WeaponOverviewController {
     	if ( actual_am > 0 ) {
     		actual.setAmmunitionAmount(actual_am-1);
     	}
-    	if ( mainApp.sizeOftheStack()>1 && (actual_am-1) == 0 ) {
+    	actual_am -= 1;
+    	if ( actual_am == 0 ) {
     		actual = mainApp.deleteWeaponFromStack();
     	}
     	showWeaponDetails(actual);
@@ -67,8 +68,13 @@ public class WeaponOverviewController {
     	System.out.println("I'm reloading");
     }
     
+    @FXML
+    private void handleDropWeapon() {
+    	mainApp.removeWeaponFromStack();
+    	showWeaponDetails(mainApp.getWeaponFromStack());
+    }
+    
     private void collectWeapon(Weapon weapon) {
-    	//Code to add the weapon into the stack
     	mainApp.addWeaponToTheStack(weapon);
     }
 	

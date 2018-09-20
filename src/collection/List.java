@@ -52,7 +52,7 @@ public class List<T> implements IStack<T>, IQueue<T>{
 	@Override
 	public T pop() {
 		T rst = null;
-		if (!isEmpty()) {
+		if (!isEmpty() && size()>1) {
 			rst = last();
 			removeLastElement();
 		}
