@@ -3,31 +3,23 @@ package icesi.model;
 public class Platform {
 
 	//CONSTANTS
-	/**
-	 * Constant that represents the platform for Microsoft users<br>
-	 */
-	public static final String MICROSOFT = "Microsoft";
-	/**
-	 * Constant that represents the platform for Nintendo users<br>
-	 */
-	public static final String NINTENDO = "Nintendo";
-	/**
-	 * Constant that represents the platform for PlayStation users<br>
-	 */
-	public static final String PLAYSTATION = "PlayStation";
+	public static final String MICROSOFT = "microsoft";
+	public static final String MACOS = "macos";
+	public static final String XBOX = "xbox";
+	public static final String PLAYSTATION = "playstation";
 	
+
+	int amountPlayerOnline;
 	
-	String typePlatform;
-	public Platform( String typePlatform) {
-		 this.typePlatform = typePlatform;
-		
+	public Platform() {
+		 this.amountPlayerOnline = 0;
 	}
-	public String getTypePlatform() {
-		return typePlatform;
+	public int getAmountPlayerOnline() {
+		return amountPlayerOnline;
 	}
-	public void setTypePlatform(String typePlatform) {
-		this.typePlatform = typePlatform;
+	public void setAmountPlayerOnline(int amountPlayerOnline) {
+		this.amountPlayerOnline = amountPlayerOnline;
 	}
-	
 	
 }
+
