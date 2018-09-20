@@ -59,7 +59,7 @@ public class MainApp extends Application {
 	
     public MainApp() {
         // Add some sample data
-    	actualPlayer = new Player("Test");
+    	actualPlayer = new Player();
     	for (int i = 0; i < 42; i++) {
 			weaponData.add(new Weapon((i%3)+2));
 		}
