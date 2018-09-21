@@ -32,9 +32,57 @@ public class Fornite {
 		pings[6] = new List<Player>();
 		pings[7] = new List<Player>();
 		pings[8] = new List<Player>();
+		
 
 	}
- 
+	public Robot getRobot() {
+		return robot;
+	}
+
+	public void setRobot(Robot robot) {
+		this.robot = robot;
+	}
+
+	public IQueue<Player> getRookieLevelPlayers() {
+		return rookieLevelPlayers;
+	}
+
+	public void setRookieLevelPlayers(IQueue<Player> rookieLevelPlayers) {
+		this.rookieLevelPlayers = rookieLevelPlayers;
+	}
+
+	public IQueue<Player> getMediumLevelPlayers() {
+		return mediumLevelPlayers;
+	}
+
+	public void setMediumLevelPlayers(IQueue<Player> mediumLevelPlayers) {
+		this.mediumLevelPlayers = mediumLevelPlayers;
+	}
+
+	public IQueue<Player> getExpertLevelPlayers() {
+		return expertLevelPlayers;
+	}
+
+	public void setExpertLevelPlayers(IQueue<Player> expertLevelPlayers) {
+		this.expertLevelPlayers = expertLevelPlayers;
+	}
+
+	public IQueue<Player>[] getPings() {
+		return pings;
+	}
+
+	public void setPings(IQueue<Player>[] pings) {
+		this.pings = pings;
+	}
+
+	public Server getServer() {
+		return server;
+	}
+
+	public void setServer(Server server) {
+		this.server = server;
+	}
+
 	public int getGames() {
 		return games;
 	}
@@ -92,11 +140,13 @@ public class Fornite {
 	public void setupFornite(int generateServer) {
 		if (generateServer == 0) {
 			server.fillServer(10);
+			System.out.println(server.getServer().isEmpty());
 			analyzeServerPlayers();
 			for (int i = 0; i < pings.length; i++) {
 				checkQueue(pings[i]);
 			}
 		}
 	}
+
 
 }
