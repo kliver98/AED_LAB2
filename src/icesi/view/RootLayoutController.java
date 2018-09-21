@@ -5,8 +5,14 @@ import javafx.fxml.FXML;
 
 public class RootLayoutController {
 
+	/**
+	 * Relation with the mainApp<br>
+	 */
+	@SuppressWarnings("unused")
 	private MainApp mainApp;
-	
+	/**
+	 * Close the window<br>
+	 */
 	@FXML
     private void handleExit() {
 		System.exit(0);
@@ -44,12 +50,12 @@ public class RootLayoutController {
         		+ "*I don't know how to open a windows like a JDialogPane in javaFX*");
     }
 	
+    /**
+	 * Method that modified the mainApp relation and put the new items<br>
+	 * @param mainApp
+	 */
 	public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
-
-	public MainApp getMainApp() {
-		return mainApp;
-	}
 	
 }

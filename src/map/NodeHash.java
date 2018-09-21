@@ -18,12 +18,12 @@ public class NodeHash<K,V> {
 	private NodeHash<K,V>[] data;
 	
 	/**
-	 * Attribute that represents the size of slots occupied in the data<br>
+	 * Attribute that represents the size of slots occupied in the data array<br>
 	 */
 	private int size;
 	
 	/**
-	 * Attribute that represents the length of the array data<br>
+	 * Attribute that represents the total length of the array data<br>
 	 */
 	private int length;
 	
@@ -38,12 +38,18 @@ public class NodeHash<K,V> {
 		this.length = 0;
 	}
 	
+	/**
+	 * Method that create an array of 1000 slots to store new data with the same hash code key of this<br>
+	 */
 	@SuppressWarnings("unchecked")
 	public void createDataArray() {
 		size = 1000;
 		data = new NodeHash[size];
 	}
 	
+	/**
+	 * Method that increment the array data created with this hash code key increasing two times the actual size<br>
+	 */
 	@SuppressWarnings("unchecked")
 	private void incrementDataArray() {
 		size *= 2;
@@ -60,7 +66,7 @@ public class NodeHash<K,V> {
 	 * @param add - NodeHash to be added<br>
 	 */
 	public void addExtra(NodeHash<K,V> add) {
-		if ( length-2 >= size )
+		if ( length-1 >= size )
 			incrementDataArray();
 		if ( length <= Integer.MAX_VALUE ) {
 			data[length] = add;
@@ -139,18 +145,34 @@ public class NodeHash<K,V> {
 		return rst;
 	}
 
+	/**
+	 * Method that returns the length of elements = {key,value} stored<br>
+	 * @return length of the slots occupied<br>
+	 */
 	public int getSize() {
 		return length;
 	}
 
+	/**
+	 * Method that returns the array of data stores with the same has code of this key<br>
+	 * @return
+	 */
 	public NodeHash<K, V>[] getData() {
 		return data;
 	}
 
+	/**
+	 * Method that put a new Key on this element<br>
+	 * @param key - new key to be replaced<br>
+	 */
 	public void setKey(K key) {
 		this.key = key;
 	}
 
+	/**
+	 * Method that put a new value in this element<br>
+	 * @param value - new vaue to be put in this element<br>
+	 */
 	public void setValue(V value) {
 		this.value = value;
 	}
