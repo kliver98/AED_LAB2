@@ -1,5 +1,6 @@
 package icesi.model;
 
+
 import collection.List;
 import interfaces.IQueue;
 

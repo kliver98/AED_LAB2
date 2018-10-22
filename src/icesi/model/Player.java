@@ -1,8 +1,5 @@
 package icesi.model;
 
-import interfaces.IStack;
-
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -11,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import collection.List;
+import interfaces.IStack;
 
 public class Player {
 	
