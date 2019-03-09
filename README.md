@@ -1,5 +1,6 @@
-# AED_U2
-Game with thematic of Dragon Ball
+# Fortnite Weapon Picker
+
+Application that allows to test how to pick and drop wheapos
 
 Created By
 Joe Hernandez,
